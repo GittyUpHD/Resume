@@ -34,6 +34,14 @@ h6 {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
 }
 
+/* Mobile menu styles */
+.mobile-menu-button {
+  display: none;
+  padding: 12px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .resume-container {
   display: flex;
   max-width: 1200px;
@@ -105,6 +113,10 @@ h6 {
   transition: width 0.3s ease;
 }
 
+.progress-fill-full {
+  width: 100%;
+}
+
 .progress-label {
   font-size: 0.8em;
   color: #666;
@@ -138,24 +150,26 @@ h6 {
   overflow: hidden;
 }
 
-/* Add subtle gradient overlay */
 .hero-content:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
-/* Enhanced name styling */
 .hero-content h1 {
   font-size: 54px;
   margin-bottom: 16px;
-  font-weight: 300;  /* Makes it lighter and more modern */
+  font-weight: 300;
   letter-spacing: 1px;
-  position: relative;  /* To appear above gradient */
+  position: relative;
 }
 
 .hero-content a {
@@ -167,17 +181,25 @@ h6 {
   color: #ccc;
 }
 
-/* Tagline styling */
 .hero-content p {
   font-size: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 300;
-  position: relative;  /* To appear above gradient */
+  position: relative;
   color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
 }
 
-/* Style the separators in the tagline */
+/* Hide scrollbar in Chrome/Safari */
+.hero-content p::-webkit-scrollbar {
+  display: none;
+}
+
 .hero-content p span {
   color: rgba(255, 255, 255, 0.5);
   margin: 0 12px;
@@ -291,13 +313,8 @@ h6 {
   padding: 24px;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   border-top: 4px solid transparent;
-}
-
-.skill-category:hover {
-  transform: translateY(-2px);
-  border-top-color: #082a4d;
 }
 
 .skill-category h3 {
@@ -308,14 +325,13 @@ h6 {
 }
 
 .skill-category ul {
-  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
   list-style-type: disc;
   padding-left: 20px;
   margin: 0;
-}
-
-.skill-category ul.visible {
-  display: block;
 }
 
 .skill-category li {
@@ -325,7 +341,13 @@ h6 {
 }
 
 .skill-category.expanded {
-  background-color: #f8f9fa;
+  transform: translateY(-2px);
+  border-top-color: #082a4d;
+}
+
+.skill-category.expanded ul {
+  opacity: 1;
+  max-height: 1000px;
 }
 
 .cert-grid {
@@ -415,45 +437,114 @@ footer a:hover {
   background-color: white;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
+/* Tooltip styles */
+.w3-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.w3-tooltip .w3-text {
+  visibility: hidden;
+  background-color: #082a4d;
+  color: white;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.w3-tooltip:hover .w3-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Responsive styling */
+@media screen and (max-width: 768px) {
+  /* Navigation adjustments */
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .w3-bar {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .w3-bar .w3-button:not(.mobile-menu-button) {
+    display: none;
+  }
+
+  .w3-bar.responsive .w3-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Content adjustments */
   .resume-container {
     flex-direction: column;
+    padding: 10px;
   }
 
   .sidebar {
     width: 100%;
-    padding-top: 20px;
-  }
-
-  .sidebar-section {
-    max-width: 800px;
-    margin: 0 auto 20px auto;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-content {
-    padding: 64px 16px;
+    padding-top: 10px;
   }
 
   .hero-content h1 {
-    font-size: 36px;
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 12px; /* Slightly smaller font for mobile */
+    letter-spacing: 1px; /* Reduced letter spacing for mobile */
+    padding-bottom: 5px; /* Add some padding to ensure text isn't cut off */
+  }
+
+  .hero-content p span {
+    margin: 0 6px; /* Reduced margin around dividers */
   }
 
   .section-title {
     font-size: 24px;
   }
 
-  .job-title {
-    font-size: 18px;
+  .job-entry {
+    padding: 16px;
+    margin-bottom: 20px;
   }
 
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .cert-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Very small screens */
+@media screen and (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 30px; /* Even smaller for very small screens */
+  }
+
+  .hero-content p {
+    font-size: 10px; /* Even smaller subtitle */
+    letter-spacing: 0.5px;
+  }
+
+  /* Further reduce divider spacing */
+  .hero-content p span {
+    margin: 0 4px;
   }
 }

@@ -1,15 +1,31 @@
 // resume.js
 
-$(document).ready(function () {
-  // Initialize - hide all job descriptions and skill lists initially
-  $(".job-description").hide();
-  $(".skill-category ul").hide();
+// Make toggleMobileMenu available globally
+window.toggleMobileMenu = function () {
+  var x = document.querySelector(".w3-bar");
+  if (x.className.indexOf("responsive") == -1) {
+    x.className += " responsive";
+  } else {
+    x.className = x.className.replace(" responsive", "");
+  }
+};
 
+$(document).ready(function () {
   // Set initial state for all sections
   $(".section-content").css({
     position: "relative",
     left: "-200px",
     opacity: "0",
+  });
+
+  // Set initial state for job entries
+  $(".job-entry").each(function () {
+    $(this).find(".job-description").css({
+      opacity: "0",
+      maxHeight: "0",
+      overflow: "hidden",
+      transition: "all 0.6s ease-in-out",
+    });
   });
 
   // Function to check and animate sections
@@ -23,12 +39,49 @@ $(document).ready(function () {
             opacity: 1,
           },
           {
-            duration: 400, // Reduced from 1000 to 400ms
+            duration: 400,
             easing: "easeOutCubic",
           }
         );
       }
     });
+
+    // Check and animate job entries
+    $(".job-entry").each(function () {
+      if (isElementInCenter(this) && !$(this).hasClass("expanded")) {
+        $(this).addClass("expanded");
+        $(this).find(".job-description").css({
+          opacity: "1",
+          maxHeight: "1000px", // Arbitrary large value
+        });
+      } else if (!isElementInCenter(this) && $(this).hasClass("expanded")) {
+        $(this).removeClass("expanded");
+        $(this).find(".job-description").css({
+          opacity: "0",
+          maxHeight: "0",
+        });
+      }
+    });
+
+    // Check and animate skill categories
+    $(".skill-category").each(function () {
+      if (isElementInCenter(this) && !$(this).hasClass("expanded")) {
+        $(this).addClass("expanded");
+      } else if (!isElementInCenter(this) && $(this).hasClass("expanded")) {
+        $(this).removeClass("expanded");
+      }
+    });
+  }
+
+  // Helper function to check if element is in the center of viewport
+  function isElementInCenter(el) {
+    var rect = el.getBoundingClientRect();
+    var windowHeight = $(window).height();
+    var elementCenter = rect.top + rect.height / 2;
+    var viewportCenter = windowHeight / 2;
+
+    // Consider element "in center" if it's within 150px of viewport center
+    return Math.abs(elementCenter - viewportCenter) < 150;
   }
 
   // Add jQuery easing function for smoother animation
@@ -48,19 +101,29 @@ $(document).ready(function () {
     }
   });
 
-  // Simple skills hover effect
-  $(".skill-category").hover(
-    function () {
-      $(this).find("ul").fadeIn(400);
-    },
-    function () {
-      $(this).find("ul").fadeOut(200);
-    }
-  );
+  // Mobile menu handlers
+  $(".mobile-menu-button").on("click", function (e) {
+    e.preventDefault();
+    toggleMobileMenu();
+  });
 
-  // Toggle job descriptions
-  $(".job-title").click(function () {
-    $(this).siblings(".job-description").slideToggle(600);
+  // Close menu when clicking outside
+  $(document).on("click", function (event) {
+    var menu = $(".w3-bar");
+    var button = $(".mobile-menu-button");
+    if (
+      !menu.is(event.target) &&
+      !button.is(event.target) &&
+      !button.find("i").is(event.target) &&
+      menu.has(event.target).length === 0
+    ) {
+      menu.removeClass("responsive");
+    }
+  });
+
+  // Close menu when clicking a menu item
+  $(".w3-bar-item:not(.mobile-menu-button)").on("click", function () {
+    $(".w3-bar").removeClass("responsive");
   });
 
   // Smooth scroll for navigation
@@ -93,11 +156,23 @@ $(document).ready(function () {
     });
   }
 
+  // Handle education section animations
+  $(".education-entry").each(function (index) {
+    var $entry = $(this);
+    setTimeout(function () {
+      $entry.addClass("animated");
+    }, index * 200);
+  });
+
+  // Bind scroll event for navigation updates
   $(window).scroll(updateActiveNavigation);
 
-  // Initial setup
+  // Initial setup calls
   checkAndAnimateSections();
   updateActiveNavigation();
+
+  // Trigger a scroll event on page load
+  $(window).trigger("scroll");
 });
 
 // Helper function to check if element is in viewport

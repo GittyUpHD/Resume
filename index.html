@@ -2,6 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="theme-color" content="#082a4d" />
     <title>Henry Davenport | Resume</title>
     <link href="resume.css" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -16,6 +22,12 @@
     <!-- Navbar -->
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card">
+        <a
+          class="mobile-menu-button w3-bar-item w3-button"
+          onclick="toggleMobileMenu()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
         <a href="#home" class="w3-bar-item w3-button">HOME</a>
         <a href="#profile" class="w3-bar-item w3-button">PROFILE</a>
         <a href="#experience" class="w3-bar-item w3-button">EXPERIENCE</a>
@@ -43,17 +55,41 @@
         <div class="sidebar-section">
           <h3>Core Competencies</h3>
           <ul>
-            <li>Data Analytics & Visualization</li>
+            <li class="w3-tooltip">
+              Data Analytics & Visualization
+              <span class="w3-text"
+                >Expertise in transforming complex data into actionable insights
+                using modern tools</span
+              >
+            </li>
             <li>Computer Programming</li>
-            <li>Process Automation</li>
+            <li class="w3-tooltip">
+              Process Automation
+              <span class="w3-text"
+                >Experience with RPA tools and custom automation solutions</span
+              >
+            </li>
             <li>Project Management</li>
-            <li>Lean Six Sigma</li>
+            <li class="w3-tooltip">
+              Lean Six Sigma
+              <span class="w3-text"
+                >Green Belt certification in progress, applied to multiple
+                improvement projects</span
+              >
+            </li>
             <li>Advanced Manufacturing Technology</li>
           </ul>
         </div>
 
         <div class="sidebar-section">
           <h3>Languages</h3>
+          <div class="language-progress">
+            English
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-full"></div>
+            </div>
+            <span class="progress-label">Primary Fluency</span>
+          </div>
           <div class="language-progress">
             German
             <div class="progress-bar">
@@ -298,9 +334,24 @@
             <div class="skill-category">
               <h3>Programming</h3>
               <ul>
-                <li>SQL</li>
-                <li>Python</li>
-                <li>R</li>
+                <li class="w3-tooltip">
+                  SQL
+                  <span class="w3-text"
+                    >Advanced querying, database design, and optimization</span
+                  >
+                </li>
+                <li class="w3-tooltip">
+                  Python
+                  <span class="w3-text"
+                    >Data analysis, automation, and web development</span
+                  >
+                </li>
+                <li class="w3-tooltip">
+                  R
+                  <span class="w3-text"
+                    >Statistical analysis and data visualization</span
+                  >
+                </li>
                 <li>Java</li>
                 <li>C#</li>
                 <li>JavaScript</li>
@@ -312,8 +363,20 @@
             <div class="skill-category">
               <h3>Data Analytics & Visualization</h3>
               <ul>
-                <li>Tableau</li>
-                <li>Power BI</li>
+                <li class="w3-tooltip">
+                  Tableau
+                  <span class="w3-text"
+                    >Certified Desktop Specialist, created enterprise
+                    dashboards</span
+                  >
+                </li>
+                <li class="w3-tooltip">
+                  Power BI
+                  <span class="w3-text"
+                    >Development of real-time operational metrics
+                    dashboards</span
+                  >
+                </li>
                 <li>Qlik</li>
                 <li>Looker</li>
                 <li>dbt</li>
