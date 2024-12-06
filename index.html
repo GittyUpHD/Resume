@@ -22,21 +22,18 @@
     <!-- Navbar -->
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card">
-        <a
-          class="mobile-menu-button w3-bar-item w3-button"
-          onclick="toggleMobileMenu()"
-        >
+        <!-- Hamburger menu always visible on mobile -->
+        <a class="mobile-menu-button w3-bar-item w3-button" onclick="toggleMobileMenu()">
           <i class="fa fa-bars"></i>
         </a>
-        <a href="#home" class="w3-bar-item w3-button">HOME</a>
-        <a href="#profile" class="w3-bar-item w3-button">PROFILE</a>
-        <a href="#experience" class="w3-bar-item w3-button">EXPERIENCE</a>
-        <a href="#education" class="w3-bar-item w3-button">EDUCATION</a>
-        <a href="#skills" class="w3-bar-item w3-button">SKILLS</a>
-        <a href="#certifications" class="w3-bar-item w3-button"
-          >CERTIFICATIONS</a
-        >
-        <a href="#contact" class="w3-bar-item w3-button">CONTACT</a>
+        <!-- Navigation items (hidden by default on mobile) -->
+        <a href="#home" class="w3-bar-item w3-button nav-link">HOME</a>
+        <a href="#profile" class="w3-bar-item w3-button nav-link">PROFILE</a>
+        <a href="#experience" class="w3-bar-item w3-button nav-link">EXPERIENCE</a>
+        <a href="#education" class="w3-bar-item w3-button nav-link">EDUCATION</a>
+        <a href="#skills" class="w3-bar-item w3-button nav-link">SKILLS</a>
+        <a href="#certifications" class="w3-bar-item w3-button nav-link">CERTIFICATIONS</a>
+        <a href="#contact" class="w3-bar-item w3-button nav-link">CONTACT</a>
       </div>
     </div>
 

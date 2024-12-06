@@ -1,6 +1,28 @@
 // resume.js
 
+// Make toggleMobileMenu available globally
+window.toggleMobileMenu = function () {
+  var x = document.querySelector(".w3-bar");
+  if (x.className.indexOf("responsive") == -1) {
+    x.className += " responsive";
+  } else {
+    x.className = x.className.replace(" responsive", "");
+  }
+};
+
 $(document).ready(function () {
+  // Ensure menu starts collapsed on mobile
+  if (window.innerWidth <= 768) {
+    $(".w3-bar").removeClass("responsive");
+  }
+
+  // Handle window resize
+  $(window).resize(function () {
+    if (window.innerWidth > 768) {
+      $(".w3-bar").removeClass("responsive");
+    }
+  });
+
   // Set initial state for all sections
   $(".section-content").css({
     position: "relative",
@@ -42,7 +64,7 @@ $(document).ready(function () {
         $(this).addClass("expanded");
         $(this).find(".job-description").css({
           opacity: "1",
-          maxHeight: "1000px",
+          maxHeight: "1000px", // Arbitrary large value
         });
       } else if (!isElementInCenter(this) && $(this).hasClass("expanded")) {
         $(this).removeClass("expanded");
@@ -53,7 +75,7 @@ $(document).ready(function () {
       }
     });
 
-    // Add this new section for skill categories
+    // Check and animate skill categories
     $(".skill-category").each(function () {
       if (isElementInCenter(this) && !$(this).hasClass("expanded")) {
         $(this).addClass("expanded");
@@ -91,14 +113,46 @@ $(document).ready(function () {
     }
   });
 
+  // Mobile menu handlers
+  $(".mobile-menu-button").on("click", function (e) {
+    e.preventDefault();
+    toggleMobileMenu();
+  });
+
+  // Close menu when clicking outside
+  $(document).on("click", function (event) {
+    var menu = $(".w3-bar");
+    var button = $(".mobile-menu-button");
+    if (
+      !menu.is(event.target) &&
+      !button.is(event.target) &&
+      !button.find("i").is(event.target) &&
+      menu.has(event.target).length === 0
+    ) {
+      menu.removeClass("responsive");
+    }
+  });
+
+  // Close menu when clicking a menu item
+  $(".w3-bar-item:not(.mobile-menu-button)").on("click", function () {
+    $(".w3-bar").removeClass("responsive");
+  });
+
   // Smooth scroll for navigation
   $('a[href^="#"]').click(function (event) {
     event.preventDefault();
     var target = $(this.hash);
     if (target.length) {
+      var offset = target.offset().top;
+      // Adjust scroll position for mobile header
+      if (window.innerWidth <= 768) {
+        offset -= 60; // Adjust this value based on your mobile header height
+      } else {
+        offset -= 46; // Desktop offset
+      }
       $("html, body").animate(
         {
-          scrollTop: target.offset().top - 46,
+          scrollTop: offset,
         },
         1000
       );
@@ -120,23 +174,6 @@ $(document).ready(function () {
       }
     });
   }
-
-  // Mobile menu functionality
-  $(document).on("click", function (event) {
-    var menu = $(".w3-bar");
-    var button = $(".mobile-menu-button");
-    if (
-      !menu.is(event.target) &&
-      !button.is(event.target) &&
-      menu.has(event.target).length === 0
-    ) {
-      menu.removeClass("responsive");
-    }
-  });
-
-  $(".w3-bar-item").on("click", function () {
-    $(".w3-bar").removeClass("responsive");
-  });
 
   // Handle education section animations
   $(".education-entry").each(function (index) {
@@ -164,14 +201,4 @@ function isElementInViewport(el) {
   var threshold = 50;
 
   return rect.top >= -rect.height && rect.top <= windowHeight - threshold;
-}
-
-// Mobile menu toggle function
-function toggleMobileMenu() {
-  var x = document.querySelector(".w3-bar");
-  if (x.className.indexOf("responsive") == -1) {
-    x.className += " responsive";
-  } else {
-    x.className = x.className.replace(" responsive", "");
-  }
 }

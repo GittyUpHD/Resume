@@ -467,18 +467,16 @@ footer a:hover {
 
 /* Responsive styling */
 @media screen and (max-width: 768px) {
-  /* Navigation adjustments */
-  .mobile-menu-button {
-    display: block;
-  }
-
-  .w3-bar {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
+  /* Hide all nav items except hamburger menu by default */
   .w3-bar .w3-button:not(.mobile-menu-button) {
     display: none;
+  }
+
+  /* Only show nav items when .responsive class is present */
+  .w3-bar.responsive {
+    position: relative;
+    flex-direction: column;
+    background-color: #082a4d;
   }
 
   .w3-bar.responsive .w3-button {
@@ -487,7 +485,29 @@ footer a:hover {
     text-align: left;
   }
 
+  /* Ensure hamburger menu is always visible */
+  .mobile-menu-button {
+    display: block !important;
+  }
+
   /* Content adjustments */
+  .hero-content {
+    padding-top: 80px;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .hero-content p span {
+    margin: 0 6px;
+  }
+
   .resume-container {
     flex-direction: column;
     padding: 10px;
@@ -496,20 +516,6 @@ footer a:hover {
   .sidebar {
     width: 100%;
     padding-top: 10px;
-  }
-
-  .hero-content h1 {
-    font-size: 32px;
-  }
-
-  .hero-content p {
-    font-size: 12px; /* Slightly smaller font for mobile */
-    letter-spacing: 1px; /* Reduced letter spacing for mobile */
-    padding-bottom: 5px; /* Add some padding to ensure text isn't cut off */
-  }
-
-  .hero-content p span {
-    margin: 0 6px; /* Reduced margin around dividers */
   }
 
   .section-title {
@@ -535,16 +541,19 @@ footer a:hover {
 /* Very small screens */
 @media screen and (max-width: 480px) {
   .hero-content h1 {
-    font-size: 30px; /* Even smaller for very small screens */
+    font-size: 30px;
   }
 
   .hero-content p {
-    font-size: 10px; /* Even smaller subtitle */
+    font-size: 10px;
     letter-spacing: 0.5px;
   }
 
-  /* Further reduce divider spacing */
   .hero-content p span {
     margin: 0 4px;
+  }
+
+  .w3-bar .w3-button {
+    padding: 12px;
   }
 }
