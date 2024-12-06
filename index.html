@@ -23,16 +23,25 @@
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card">
         <!-- Hamburger menu always visible on mobile -->
-        <a class="mobile-menu-button w3-bar-item w3-button" onclick="toggleMobileMenu()">
+        <a
+          class="mobile-menu-button w3-bar-item w3-button"
+          onclick="toggleMobileMenu()"
+        >
           <i class="fa fa-bars"></i>
         </a>
         <!-- Navigation items (hidden by default on mobile) -->
         <a href="#home" class="w3-bar-item w3-button nav-link">HOME</a>
         <a href="#profile" class="w3-bar-item w3-button nav-link">PROFILE</a>
-        <a href="#experience" class="w3-bar-item w3-button nav-link">EXPERIENCE</a>
-        <a href="#education" class="w3-bar-item w3-button nav-link">EDUCATION</a>
+        <a href="#experience" class="w3-bar-item w3-button nav-link"
+          >EXPERIENCE</a
+        >
+        <a href="#education" class="w3-bar-item w3-button nav-link"
+          >EDUCATION</a
+        >
         <a href="#skills" class="w3-bar-item w3-button nav-link">SKILLS</a>
-        <a href="#certifications" class="w3-bar-item w3-button nav-link">CERTIFICATIONS</a>
+        <a href="#certifications" class="w3-bar-item w3-button nav-link"
+          >CERTIFICATIONS</a
+        >
         <a href="#contact" class="w3-bar-item w3-button nav-link">CONTACT</a>
       </div>
     </div>
@@ -483,5 +492,31 @@
       </div>
       <p class="w3-medium">© 2024 Henry Davenport. All rights reserved.</p>
     </footer>
+
+    <!-- Access PDF Resume -->
+    <div class="action-buttons">
+      <!-- Changed to just download/view PDF, no printing -->
+      <a
+        href="HenryDavenportResume.pdf"
+        class="action-button download-button"
+        title="Download Resume PDF"
+        target="_blank"
+      >
+        <i class="fa fa-download"></i>
+      </a>
+      <div class="share-container">
+        <button class="action-button share-button" title="Share Resume">
+          <i class="fa fa-share-alt"></i>
+        </button>
+        <div class="share-options">
+          <button class="share-option" data-action="copy">
+            <i class="fa fa-copy"></i> Copy Link
+          </button>
+          <button class="share-option" data-action="email">
+            <i class="fa fa-envelope"></i> Email
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

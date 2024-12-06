@@ -192,6 +192,50 @@ $(document).ready(function () {
 
   // Trigger a scroll event on page load
   $(window).trigger("scroll");
+
+  // Share button
+  $(".share-button").click(function (e) {
+    e.stopPropagation();
+    $(".share-options").toggleClass("active");
+  });
+
+  // Close share options when clicking outside
+  $(document).click(function (e) {
+    if (!$(e.target).closest(".share-container").length) {
+      $(".share-options").removeClass("active");
+    }
+  });
+
+  // Handle share options
+  $(".share-option").click(function () {
+    const action = $(this).data("action");
+
+    switch (action) {
+      case "copy":
+        navigator.clipboard
+          .writeText(window.location.href)
+          .then(() => {
+            const originalText = $(this).html();
+            $(this).html('<i class="fa fa-check"></i> Copied!');
+            setTimeout(() => {
+              $(this).html(originalText);
+            }, 2000);
+          })
+          .catch((err) => console.error("Failed to copy:", err));
+        break;
+
+      case "email":
+        const subject = "Henry Davenport's Resume";
+        const body =
+          "Check out my professional resume: " + window.location.href;
+        window.location.href = `mailto:?subject=${encodeURIComponent(
+          subject
+        )}&body=${encodeURIComponent(body)}`;
+        break;
+    }
+
+    $(".share-options").removeClass("active");
+  });
 });
 
 // Helper function to check if element is in viewport

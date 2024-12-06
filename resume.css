@@ -465,6 +465,72 @@ footer a:hover {
   opacity: 1;
 }
 
+/* Action Buttons */
+.action-buttons {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.action-button {
+  background-color: #082a4d;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #0e3d6b;
+}
+
+.share-container {
+  position: relative;
+}
+
+.share-options {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  display: none;
+  min-width: 200px;
+}
+
+.share-options.active {
+  display: block;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.share-option:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
 /* Responsive styling */
 @media screen and (max-width: 768px) {
   /* Hide all nav items except hamburger menu by default */
@@ -555,5 +621,76 @@ footer a:hover {
 
   .w3-bar .w3-button {
     padding: 12px;
+  }
+}
+
+@media print {
+  .action-buttons {
+    display: none !important;
+  }
+
+  /* Hide non-printable elements */
+  .w3-bar,
+  .mobile-menu-button,
+  .social-icons,
+  .share-buttons {
+    display: none !important;
+  }
+
+  /* Adjust layout for printing */
+  .resume-container {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Ensure all content is visible */
+  .job-description,
+  .skill-category ul {
+    opacity: 1 !important;
+    max-height: none !important;
+    display: block !important;
+  }
+
+  /* Adjust colors for better printing */
+  body {
+    color: black;
+    background: none;
+  }
+
+  /* Force background colors to print */
+  .hero-content {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Page breaks */
+  .section-content {
+    page-break-inside: avoid;
+  }
+
+  /* Adjust font sizes */
+  .hero-content h1 {
+    font-size: 24pt;
+  }
+
+  .section-title {
+    font-size: 18pt;
+  }
+
+  /* Remove animations and transitions */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Ensure URLs are visible in printed version */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 80%;
+  }
+
+  /* But don't show URLs for internal links */
+  a[href^="#"]:after {
+    content: "";
   }
 }
